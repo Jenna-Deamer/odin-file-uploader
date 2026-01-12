@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/form.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<body>
+    <h1>Login</h1>
+    <%- include("partials/errors.ejs") %>
+        <form action="/login" method="POST">
+            <fieldset>
+                <label for="email">Email</label>
+                <input id="email" name="email" placeholder="email" type="email" />
+            </fieldset>
+            <fieldset>
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" />
+            </fieldset>
+            </fieldset>
+
+            <button type="submit">Login</button>
+        </form>
+</body>
+
+</html>

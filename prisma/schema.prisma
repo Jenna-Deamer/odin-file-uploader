@@ -1,0 +1,32 @@
+model Session {
+    id        String   @id
+    sid       String   @unique
+    data      String
+    expiresAt DateTime
+}
+
+generator client {
+    provider = "prisma-client-js"
+    output   = "../generated/prisma"
+}
+
+datasource db {
+    provider = "postgresql"
+}
+
+model User {
+    id       Int    @id @default(autoincrement())
+    email    String @unique
+    password String
+    files    File[]
+}
+
+model File {
+    id         Int      @id @default(autoincrement())
+    name       String   @unique
+    userId     Int
+    user       User     @relation(fields: [userId], references: [id])
+    uploadedAt DateTime @default(now())
+    lastEdited DateTime @updatedAt
+    size       Int
+}
