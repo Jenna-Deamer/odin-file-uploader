@@ -3,7 +3,11 @@ const { generatePassword } = require("../config/passwordUtils");
 const { prisma } = require('../lib/prisma');
 
 async function showSignUpForm(req, res) {
-    res.render("sign-up-form");
+    if (req.user) {
+        res.redirect("/")
+    } else {
+        res.render("sign-up-form");
+    }
 };
 
 async function handleSignUp(req, res) {
@@ -27,8 +31,11 @@ async function handleSignUp(req, res) {
 
 
 async function showLoginForm(req, res) {
-    res.render("login-form");
-
+    if (req.user) {
+        res.redirect("/")
+    } else {
+        res.render("login-form");
+    }
 }
 
 function handleLogOut(req, res, next) {
