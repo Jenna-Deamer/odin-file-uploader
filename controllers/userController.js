@@ -22,7 +22,7 @@ async function handleSignUp(req, res) {
             }
         });
 
-        res.redirect('/');
+        res.redirect('/login');
     } catch (error) {
         console.error(error);
         next(error);

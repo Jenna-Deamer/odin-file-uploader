@@ -1,14 +1,14 @@
 const { prisma } = require('./lib/prisma');
 
 async function main() {
-    // Create a new user with a file
     const user = await prisma.user.create({
         data: {
-            email: 'alice',
+            email: 'alice@example.com',
             password: 'hashed-password-here',
             files: {
                 create: {
                     name: 'example.txt',
+                    url: 'uploads/example-123.txt',
                     size: 1024,
                 },
             },
@@ -20,7 +20,7 @@ async function main() {
 
     console.log('Created user:', user);
 
-    // Fetch all users with their files
+    // 3. Fetch all users with their files
     const allUsers = await prisma.user.findMany({
         include: {
             files: true,

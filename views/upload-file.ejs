@@ -12,10 +12,10 @@
 <body>
     <h1>Upload File</h1>
     <%- include("partials/errors.ejs") %>
-        <form action="/upload-file" method="POST">
+        <form action="/upload-file" method="POST" enctype="multipart/form-data">
             <fieldset>
                 <label for="file">Select a file</label>
-                <input id="file" name="file" type="file" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.txt,.csv" />
+                <input id="file" name="uploaded_file" type="file" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.txt,.csv" />
             </fieldset>
 
 

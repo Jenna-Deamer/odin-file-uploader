@@ -26,7 +26,8 @@ model File {
     name       String   @unique
     userId     Int
     user       User     @relation(fields: [userId], references: [id])
+    url        String
+    size       Int
     uploadedAt DateTime @default(now())
     lastEdited DateTime @updatedAt
-    size       Int
 }
