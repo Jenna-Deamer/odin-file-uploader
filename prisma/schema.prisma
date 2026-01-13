@@ -15,10 +15,11 @@ datasource db {
 }
 
 model User {
-    id       Int    @id @default(autoincrement())
-    email    String @unique
+    id       Int      @id @default(autoincrement())
+    email    String   @unique
     password String
     files    File[]
+    folders  Folder[]
 }
 
 model File {
@@ -30,4 +31,14 @@ model File {
     size       Int
     uploadedAt DateTime @default(now())
     lastEdited DateTime @updatedAt
+    folder     Folder?  @relation(fields: [folderId], references: [id])
+    folderId   Int?
+}
+
+model Folder {
+    id     Int    @id @default(autoincrement())
+    name   String @unique
+    userId Int
+    user   User   @relation(fields: [userId], references: [id])
+    files  File[]
 }

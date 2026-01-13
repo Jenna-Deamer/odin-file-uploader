@@ -4,7 +4,7 @@ function showFileCreateForm(req, res) {
     res.render("upload-file");
 }
 
-async function handleNewFile(req, res) {
+async function handleNewFile(req, res, next) {
     try {
         if (!req.file) {
             return res.status(400).send("No file was uploaded.");
@@ -28,7 +28,14 @@ async function handleNewFile(req, res) {
     }
 }
 
+async function getAllfilesByUserId(userId) {
+    return prisma.file.findMany({
+        where: { userId }
+    });
+}
+
 module.exports = {
     showFileCreateForm,
-    handleNewFile
+    handleNewFile,
+    getAllfilesByUserId
 };

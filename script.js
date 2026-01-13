@@ -20,7 +20,7 @@ async function main() {
 
     console.log('Created user:', user);
 
-    // 3. Fetch all users with their files
+    // Fetch all users with their files
     const allUsers = await prisma.user.findMany({
         include: {
             files: true,

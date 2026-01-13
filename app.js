@@ -14,6 +14,7 @@ const prisma = new PrismaClient({ adapter });
 
 const userRouter = require("./routes/userRouter");
 const fileRouter = require("./routes/fileRouter.js");
+const filesController = require("./controllers/filesController.js");
 
 
 const app = express();
@@ -42,7 +43,6 @@ app.use(
 );
 
 app.use(passport.session());
-app.use(express.urlencoded({ extended: false }));
 app.use(userRouter);
 app.use(fileRouter);
 
@@ -54,14 +54,24 @@ app.use((req, res, next) => {
 
 app.get("/", async (req, res, next) => {
     try {
+        if (!req.user) {
+            return res.render("index", {
+                user: null,
+                files: []
+            });
+        }
+
+        const files = await filesController.getAllfilesByUserId(req.user.id);
+        console.log(files)
+
         res.render("index", {
             user: req.user,
+            files
         });
     } catch (err) {
         next(err);
     }
 });
-
 app.listen(3000, (error) => {
     if (error) {
         throw error;

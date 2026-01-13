@@ -11,15 +11,15 @@ async function verifyCallback(email, password, done) {
             },
         })
         if (!user) {
-            return done(null, false)
+            return done(null, false, { message: "Email not found" });
         }
         const match = await validatePassword(password, user.password);
 
-        if (match) {
-            return done(null, user);
-        } else {
-            return done(null, false);
+        if (!match) {
+            return done(null, false, { message: "Incorrect password" });
         }
+
+        return done(null, user);
     } catch (err) {
         return done(err);
     }
