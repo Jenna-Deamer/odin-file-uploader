@@ -13,6 +13,7 @@ const prisma = new PrismaClient({ adapter });
 
 
 const userRouter = require("./routes/userRouter");
+const fileRouter = require("./routes/fileRouter.js");
 
 
 const app = express();
@@ -43,7 +44,7 @@ app.use(
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 app.use(userRouter);
-
+app.use(fileRouter);
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;

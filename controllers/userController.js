@@ -2,7 +2,7 @@ const { body } = require("express-validator");
 const { generatePassword } = require("../config/passwordUtils");
 const { prisma } = require('../lib/prisma');
 
-async function showSignUpForm(req, res) {
+function showSignUpForm(req, res) {
     if (req.user) {
         res.redirect("/")
     } else {
@@ -30,7 +30,7 @@ async function handleSignUp(req, res) {
 };
 
 
-async function showLoginForm(req, res) {
+function showLoginForm(req, res) {
     if (req.user) {
         res.redirect("/")
     } else {
@@ -45,9 +45,11 @@ function handleLogOut(req, res, next) {
     });
 }
 
+
+
 module.exports = {
     showSignUpForm,
     handleSignUp,
     showLoginForm,
-    handleLogOut
+    handleLogOut,
 };

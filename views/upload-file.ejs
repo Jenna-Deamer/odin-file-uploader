@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/form.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File</title>
+</head>
+
+<body>
+    <h1>Upload File</h1>
+    <%- include("partials/errors.ejs") %>
+        <form action="/upload-file" method="POST">
+            <fieldset>
+                <label for="file">Select a file</label>
+                <input id="file" name="file" type="file" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.txt,.csv" />
+            </fieldset>
+
+
+
+            <button type="submit">Upload</button>
+        </form>
+</body>
+
+</html>
