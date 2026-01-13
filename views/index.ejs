@@ -8,10 +8,14 @@
 </head>
 
 <body>
+
     <% if (user) { %>
-        <h1>Welcome <%= user.email %>
-        </h1>
-        <a href="/logout">Logout</a>
+        <div class="main-header">
+            <h1>Welcome <%= user.email %>
+            </h1>
+            <a href="/logout">Logout</a>
+        </div>
+
         <% } else { %>
             <h1>
                 Welcome, please
@@ -20,12 +24,25 @@
                 to get started
             </h1>
             <% } %>
+                <div class="file-header">
+                    <h2>Your Files</h2> <a href="/upload-file">Upload File</a>
+                    <% if (user && files) { %>
+                </div>
 
-                <% if (user) { %>
-                    <div class="file-list">
-                        <h2>Your Files</h2>
-                    </div>
-                    <% } %>
+                <div class="file-list">
+
+                    <ul>
+                        <% files.forEach(file=> { %>
+                            <li>
+                                <a href="<%= file.url %>">
+                                    <%= file.name %>
+                                </a>
+                            </li>
+                            <% }) %>
+                    </ul>
+                </div>
+                <% } %>
+
 </body>
 
 </html>
