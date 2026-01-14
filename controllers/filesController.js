@@ -1,9 +1,15 @@
 const { prisma } = require('../lib/prisma');
 
-function showFileCreateForm(req, res) {
-    res.render("upload-file");
-}
+async function showFileCreateForm(req, res, next) {
+    try {
+        const folders = await getAllFoldersByUserId(req.user.id);
 
+        res.render("upload-file", { folders });
+    } catch (error) {
+        console.error("Error fetching folders:", error);
+        next(error);
+    }
+}
 function showFolderCreateForm(req, res) {
     res.render("new-folder");
 
@@ -15,6 +21,13 @@ async function handleNewFile(req, res, next) {
             return res.status(400).send("No file was uploaded.");
         }
         const { originalname, size, path: filePath } = req.file;
+        if (req.body.folder && req.body.folder !== "") {
+            // Convert id selected to Int
+            selectedFolderId = parseInt(req.body.folder);
+        } else {
+            // None selected set to null
+            selectedFolderId = null;
+        }
 
         await prisma.file.create({
             data: {
@@ -22,6 +35,7 @@ async function handleNewFile(req, res, next) {
                 size: size,
                 url: filePath,
                 userId: req.user.id,
+                folderId: selectedFolderId
 
             }
         });

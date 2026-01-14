@@ -16,6 +16,17 @@
             <fieldset>
                 <label for="file">Select a file</label>
                 <input id="file" name="uploaded_file" type="file" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.txt,.csv" />
+                <label for="folder">Select Folder:</label>
+                <select name="folder" id="folder">
+                    <option value="">None</option>
+                    <% folders.forEach(folder=> { %>
+                        <option value="<%= folder.id %>">
+                            <%= folder.name %>
+                        </option>
+                        <% }) %>
+                </select>
+
+
             </fieldset>
 
 
