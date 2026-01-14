@@ -12,4 +12,7 @@ fileRouter.post(
     filesController.handleNewFile
 );
 
+fileRouter.get('/new-folder', isAuth, filesController.showFolderCreateForm);
+fileRouter.post('/new-folder', isAuth, filesController.handleNewFolder);
+
 module.exports = fileRouter;

@@ -61,12 +61,14 @@ app.get("/", async (req, res, next) => {
             });
         }
 
-        const files = await filesController.getAllfilesByUserId(req.user.id);
+        const files = await filesController.getAllFilesByUserId(req.user.id);
+        const folders = await filesController.getAllFoldersByUserId(req.user.id);
         console.log(files)
 
         res.render("index", {
             user: req.user,
-            files
+            files,
+            folders
         });
     } catch (err) {
         next(err);

@@ -25,12 +25,11 @@
             </h1>
             <% } %>
                 <div class="file-header">
-                    <h2>Your Files</h2> <a href="/upload-file">Upload File</a>
-                    <% if (user && files) { %>
+                    <h2>Your Files</h2> <a href="/upload-file">Upload File</a><a href="/new-folder">Create Folder</a>
+                    <% if (user) { %>
                 </div>
 
                 <div class="file-list">
-
                     <ul>
                         <% files.forEach(file=> { %>
                             <li>
@@ -39,6 +38,14 @@
                                 </a>
                             </li>
                             <% }) %>
+
+                                <% folders.forEach(folder=> { %>
+                                    <li>
+                                        <%= folder.name %>
+
+                                    </li>
+                                    <% }) %>
+                    </ul>
                     </ul>
                 </div>
                 <% } %>

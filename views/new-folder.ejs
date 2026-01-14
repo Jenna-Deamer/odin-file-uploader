@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/form.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Folder</title>
+</head>
+
+<body>
+    <h1>New Folder</h1>
+    <%- include("partials/errors.ejs") %>
+        <form action="/new-folder" method="POST">
+            <fieldset>
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" />
+            </fieldset>
+
+            <button type="submit">Create</button>
+        </form>
+</body>
+
+</html>

@@ -4,6 +4,11 @@ function showFileCreateForm(req, res) {
     res.render("upload-file");
 }
 
+function showFolderCreateForm(req, res) {
+    res.render("new-folder");
+
+}
+
 async function handleNewFile(req, res, next) {
     try {
         if (!req.file) {
@@ -28,8 +33,29 @@ async function handleNewFile(req, res, next) {
     }
 }
 
-async function getAllfilesByUserId(userId) {
+async function handleNewFolder(req, res, next) {
+    try {
+        await prisma.folder.create({
+            data: {
+                userId: req.user.id,
+                name: req.body.name,
+            }
+        });
+
+        res.redirect("/");
+    } catch (error) {
+        console.error("Error creating folder", error);
+        next(error);
+    }
+}
+async function getAllFilesByUserId(userId) {
     return prisma.file.findMany({
+        where: { userId }
+    });
+}
+
+async function getAllFoldersByUserId(userId) {
+    return prisma.folder.findMany({
         where: { userId }
     });
 }
@@ -37,5 +63,8 @@ async function getAllfilesByUserId(userId) {
 module.exports = {
     showFileCreateForm,
     handleNewFile,
-    getAllfilesByUserId
+    getAllFilesByUserId,
+    getAllFoldersByUserId,
+    showFolderCreateForm,
+    handleNewFolder
 };
