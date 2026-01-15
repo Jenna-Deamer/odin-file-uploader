@@ -74,11 +74,35 @@ async function getAllFoldersByUserId(userId) {
     });
 }
 
+async function showFolderDetails(req, res, next) {
+    try {
+        const folderId = parseInt(req.params.id);
+
+        const folder = await prisma.folder.findUnique({
+            where: {
+                id: folderId,
+            },
+            include: {
+                files: true
+            }
+        });
+        console.log(folder)
+        if (!folder || folder.userId !== req.user.id) {
+            return res.status(404).send("Folder not found or unauthorized");
+        }
+
+        res.render("folder", { folder });
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     showFileCreateForm,
     handleNewFile,
     getAllFilesByUserId,
     getAllFoldersByUserId,
     showFolderCreateForm,
-    handleNewFolder
+    handleNewFolder,
+    showFolderDetails
 };

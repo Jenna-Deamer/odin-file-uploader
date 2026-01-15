@@ -41,7 +41,9 @@
 
                                 <% folders.forEach(folder=> { %>
                                     <li>
-                                        <%= folder.name %>
+                                        <a href="/folder/<%= folder.id %>">
+                                            <%= folder.name %>
+                                        </a>
 
                                     </li>
                                     <% }) %>
