@@ -15,6 +15,8 @@ fileRouter.post(
 fileRouter.get('/new-folder', isAuth, filesController.showFolderCreateForm);
 fileRouter.post('/new-folder', isAuth, filesController.handleNewFolder);
 
+fileRouter.get("/file/:id", isAuth, filesController.showFileDetials);
 fileRouter.get("/folder/:id", isAuth, filesController.showFolderDetails);
+
 
 module.exports = fileRouter;
