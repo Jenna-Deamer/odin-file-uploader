@@ -10,16 +10,31 @@
 </head>
 
 <body>
-    <h1>New Folder</h1>
-    <%- include("partials/errors.ejs") %>
-        <form action="/new-folder" method="POST">
-            <fieldset>
-                <label for="name">Name</label>
-                <input id="name" name="name" type="text" />
-            </fieldset>
 
-            <button type="submit">Create</button>
-        </form>
+    <div class="main-header">
+        <h1>New Folder</h1>
+        <a href="/" class="btn btn-secondary">Back</a>
+    </div>
+
+    <%- include("partials/errors.ejs") %>
+
+        <div class="form-card">
+            <form action="/new-folder" method="POST">
+
+                <fieldset>
+                    <label for="name">Folder name</label>
+                    <input id="name" name="name" type="text" placeholder="e.g. Invoices" required />
+                </fieldset>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        Create Folder
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
 </body>
 
 </html>

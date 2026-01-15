@@ -4,29 +4,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        File Details
-    </title>
+    <link rel="stylesheet" href="/styles.css">
+    <title>File Details</title>
 </head>
 
 <body>
-    <h1>
-        File Details
-    </h1>
 
+    <div class="main-header">
+        <h1>File Details</h1>
+        <a href="/" class="btn btn-secondary">Back</a>
+    </div>
 
-    <h2>Name: <%= file.name %>
-    </h2>
-    <p>URL: <%= file.url %>
-    </p>
-    <p>Size: <%= file.size %>
-    </p>
-    <p>Uploaded: <%= file.uploadedAt %>
-    </p>
-    <p>Edited: <%= file.lastEdited %>
-    </p>
+    <div class="file-details">
 
-    <a href="/">Go Back</a>
+        <div class="details-card">
+            <h2>
+                <%= file.name %>
+            </h2>
+
+            <dl class="meta">
+                <div>
+                    <dt>URL</dt>
+                    <dd>
+                        <a href="<%= file.url %>" target="_blank" rel="noopener">
+                            <%= file.url %>
+                        </a>
+                    </dd>
+                </div>
+
+                <div>
+                    <dt>Size</dt>
+                    <dd>
+                        <%= file.size %>
+                    </dd>
+                </div>
+
+                <div>
+                    <dt>Uploaded</dt>
+                    <dd>
+                        <%= file.uploadedAt %>
+                    </dd>
+                </div>
+
+                <div>
+                    <dt>Last edited</dt>
+                    <dd>
+                        <%= file.lastEdited %>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+
+        <div class="file-actions">
+            <a href="/file-update/<%= file.id %>" class="btn btn-primary" target="_blank">
+                Update
+            </a>
+            <form action="/file/<%= file.id %>/delete" method="POST">
+                <button type="submit" class="btn btn-danger">
+                    Delete
+                </button>
+            </form>
+        </div>
+
+    </div>
 
 </body>
 

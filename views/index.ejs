@@ -4,53 +4,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/styles.css">
+    <title>Drive - My Files</title>
 </head>
 
 <body>
 
     <% if (user) { %>
+
         <div class="main-header">
             <h1>Welcome <%= user.email %>
             </h1>
-            <a href="/logout">Logout</a>
+            <a href="/logout" class="btn btn-danger">Logout</a>
+        </div>
+
+        <div class="file-header">
+            <h2>Your Files</h2>
+            <div class="file-actions">
+                <a href="/upload-file" class="btn btn-primary">Upload File</a>
+                <a href="/new-folder" class="btn btn-secondary">Create Folder</a>
+            </div>
+        </div>
+
+        <div class="file-list">
+
+            <div class="section">
+                <h3>Folders</h3>
+                <ul>
+                    <% folders.forEach(folder=> { %>
+                        <li class="item folder">
+                            <a href="/folder/<%= folder.id %>">
+                                <%= folder.name %>
+                            </a>
+                        </li>
+                        <% }) %>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>Files</h3>
+                <ul>
+                    <% files.forEach(file=> { %>
+                        <li class="item file">
+                            <a href="/file/<%= file.id %>">
+                                <%= file.name %>
+                            </a>
+                        </li>
+                        <% }) %>
+                </ul>
+            </div>
+
         </div>
 
         <% } else { %>
+
             <h1>
                 Welcome, please
                 <a href="/login">Login</a> or
                 <a href="/sign-up">Sign up</a>
                 to get started
             </h1>
+
             <% } %>
-                <div class="file-header">
-                    <h2>Your Files</h2> <a href="/upload-file">Upload File</a><a href="/new-folder">Create Folder</a>
-                    <% if (user) { %>
-                </div>
-
-                <div class="file-list">
-                    <ul>
-                        <% files.forEach(file=> { %>
-                            <li>
-                                <a href="/file/<%= file.id %>">
-                                    <%= file.name %>
-                                </a>
-                            </li>
-                            <% }) %>
-
-                                <% folders.forEach(folder=> { %>
-                                    <li>
-                                        <a href="/folder/<%= folder.id %>">
-                                            <%= folder.name %>
-                                        </a>
-
-                                    </li>
-                                    <% }) %>
-                    </ul>
-                    </ul>
-                </div>
-                <% } %>
 
 </body>
 

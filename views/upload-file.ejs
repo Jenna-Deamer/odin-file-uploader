@@ -6,33 +6,47 @@
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/form.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/form.css">
+
     <title>Upload File</title>
 </head>
 
 <body>
-    <h1>Upload File</h1>
+
+    <div class="main-header">
+        <h1>Upload File</h1>
+        <a href="/" class="btn btn-secondary">Back</a>
+    </div>
+
     <%- include("partials/errors.ejs") %>
-        <form action="/upload-file" method="POST" enctype="multipart/form-data">
-            <fieldset>
-                <label for="file">Select a file</label>
-                <input id="file" name="uploaded_file" type="file" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.txt,.csv" />
-                <label for="folder">Select Folder:</label>
-                <select name="folder" id="folder">
-                    <option value="">None</option>
-                    <% folders.forEach(folder=> { %>
-                        <option value="<%= folder.id %>">
-                            <%= folder.name %>
-                        </option>
-                        <% }) %>
-                </select>
 
+        <div class="form-card">
+            <form action="/upload-file" method="POST" enctype="multipart/form-data">
 
-            </fieldset>
+                <fieldset>
+                    <label for="file">Select file</label>
+                    <input id="file" name="uploaded_file" type="file" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.txt,.csv"
+                        required />
 
+                    <label for="folder">Folder (optional)</label>
+                    <select name="folder" id="folder">
+                        <option value="">None</option>
+                        <% folders.forEach(folder=> { %>
+                            <option value="<%= folder.id %>">
+                                <%= folder.name %>
+                            </option>
+                            <% }) %>
+                    </select>
+                </fieldset>
 
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
 
-            <button type="submit">Upload</button>
-        </form>
+            </form>
+        </div>
+
 </body>
 
 </html>
