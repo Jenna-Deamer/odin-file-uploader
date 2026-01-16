@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/form.css">
+    <title>Update File</title>
+</head>
+
+<body>
+    <div class="main-header">
+        <h1>Update File</h1>
+        <a href="/" class="btn btn-secondary">Back</a>
+    </div>
+
+    <%- include("partials/errors.ejs") %>
+
+        <div class="form-card">
+            <form action="/update-file/<%= file.id %>" method="POST" enctype="multipart/form-data">
+                <fieldset>
+                    <label for="file">Select file</label>
+                    <input id="file" name="uploaded_file" type="file"
+                        accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.txt,.csv" />
+
+                    <% if (file && file.name) { %>
+                        <p>Current file: <strong>
+                                <%= file.name %>
+                            </strong></p>
+                        <% } %>
+
+                            <label for="folder">Folder (optional)</label>
+                            <select name="folder" id="folder">
+                                <option value="">None</option>
+                                <% folders.forEach(folder=> { %>
+                                    <option value="<%= folder.id %>" <%=file.folderId===folder.id ? 'selected' : '' %>>
+                                        <%= folder.name %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                </fieldset>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+
+        </div>
+</body>
+
+</html>

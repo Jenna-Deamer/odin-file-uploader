@@ -119,6 +119,26 @@ async function showFileDetials(req, res, next) {
     }
 }
 
+async function showUpdateFileForm(req, res) {
+    const fileId = parseInt(req.params.id);
+    const folders = await getAllFoldersByUserId();
+    const file = await prisma.file.findUnique({
+        where: {
+            id: fileId,
+        }
+    });
+    res.render("update-file", { file, folders });
+
+}
+async function updateFileById(req, res, next) {
+    try {
+
+    } catch (error) {
+        console.error("Error updating file");
+        next(error);
+    }
+}
+
 module.exports = {
     showFileCreateForm,
     handleNewFile,
@@ -127,5 +147,7 @@ module.exports = {
     showFolderCreateForm,
     handleNewFolder,
     showFolderDetails,
-    showFileDetials
+    showFileDetials,
+    showUpdateFileForm,
+    updateFileById
 };

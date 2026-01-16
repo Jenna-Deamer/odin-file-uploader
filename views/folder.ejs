@@ -28,7 +28,7 @@
                 <ul>
                     <% folder.files.forEach(file=> { %>
                         <li class="item file">
-                            <a href="<%= file.url %>">
+                            <a href="/file/<%= file.id %>">
                                 <%= file.name %>
                             </a>
                         </li>

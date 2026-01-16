@@ -16,6 +16,9 @@ fileRouter.get('/new-folder', isAuth, filesController.showFolderCreateForm);
 fileRouter.post('/new-folder', isAuth, filesController.handleNewFolder);
 
 fileRouter.get("/file/:id", isAuth, filesController.showFileDetials);
+fileRouter.get("/update-file/:id", isAuth, filesController.showUpdateFileForm);
+fileRouter.post("/update-file/:id", isAuth, filesController.updateFileById);
+
 fileRouter.get("/folder/:id", isAuth, filesController.showFolderDetails);
 
 
