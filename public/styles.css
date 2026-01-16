@@ -166,14 +166,29 @@ select {
 
 /* Icons */
 .item.folder a::before {
-    content: "📁";
-    font-size: 18px;
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    background-image: url('./folder.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
 }
 
 .item.file a::before {
-    content: "📄";
-    font-size: 18px;
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    background-image: url('./document.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
 }
+
 
 .empty-state {
     background: #fff;

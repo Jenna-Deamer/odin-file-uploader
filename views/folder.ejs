@@ -14,7 +14,7 @@
 
     <div class="main-header">
         <h1>
-            📁 <%= folder.name %>
+            <%= folder.name %>
         </h1>
         <a href="/" class="btn btn-secondary">Back</a>
     </div>
@@ -42,7 +42,16 @@
                     <% } %>
 
         </div>
-
+        <div class="file-actions">
+            <a href="/update-folder/<%= folder.id %>" class="btn btn-primary" target="_blank">
+                Update
+            </a>
+            <form action="" method="POST">
+                <button type="submit" class="btn btn-danger">
+                    Delete
+                </button>
+            </form>
+        </div>
     </div>
 
 </body>
