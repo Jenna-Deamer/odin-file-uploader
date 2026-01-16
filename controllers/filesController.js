@@ -132,12 +132,30 @@ async function showUpdateFileForm(req, res) {
 }
 async function updateFileById(req, res, next) {
     try {
+        const fileId = parseInt(req.params.id);
+        const selectedFolderId = req.body.folder ? parseInt(req.body.folder) : null;
 
+        const updateData = {
+            folderId: selectedFolderId,
+        };
+
+        if (req.file) {
+            updateData.name = req.file.originalname;
+            updateData.size = req.file.size;
+            updateData.url = req.file.path;
+        }
+
+        await prisma.file.update({
+            where: { id: fileId },
+            data: updateData
+        });
+
+        res.redirect("/");
     } catch (error) {
-        console.error("Error updating file");
         next(error);
     }
 }
+
 
 module.exports = {
     showFileCreateForm,
