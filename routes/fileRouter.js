@@ -19,6 +19,7 @@ fileRouter.get("/file/:id", isAuth, filesController.showFileDetials);
 fileRouter.get("/update-file/:id", isAuth, filesController.showUpdateFileForm);
 fileRouter.post("/update-file/:id", isAuth, upload.single('uploaded_file'), filesController.updateFileById);
 
+fileRouter.get("/delete-file", isAuth, filesController.deleteFile);
 fileRouter.get("/folder/:id", isAuth, filesController.showFolderDetails);
 
 

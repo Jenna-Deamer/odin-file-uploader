@@ -56,13 +56,15 @@
         </div>
 
         <div class="file-actions">
-            <a href="/update-file/<%= file.id %>" class="btn btn-primary" target="_blank">
+            <a href="/update-file/<%= file.id %>" class="btn btn-primary">
                 Update
             </a>
-            <form action="/file/<%= file.id %>/delete" method="POST">
-                <button type="submit" class="btn btn-danger">
-                    Delete
-                </button>
+
+            <form action="/delete-file" method="GET"
+                onsubmit="return confirm(`Are you sure you want to delete <%= file.name %>?`)">
+                <input type="hidden" name="file_id" value="<%= file.id %>">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
             </form>
         </div>
 

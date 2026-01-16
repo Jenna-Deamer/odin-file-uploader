@@ -156,6 +156,21 @@ async function updateFileById(req, res, next) {
     }
 }
 
+async function deleteFile(req, res, next) {
+    const fileId = parseInt(req.query.file_id);
+
+    try {
+        const deleteFile = await prisma.file.delete({
+            where: {
+                id: fileId,
+            }
+        })
+
+        res.redirect("/");
+    } catch (error) {
+        next(error);
+    }
+}
 
 module.exports = {
     showFileCreateForm,
@@ -167,5 +182,6 @@ module.exports = {
     showFolderDetails,
     showFileDetials,
     showUpdateFileForm,
-    updateFileById
+    updateFileById,
+    deleteFile
 };
