@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/form.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Folder</title>
+</head>
+
+<body>
+
+    <div class="main-header">
+        <h1>Update Folder's Name</h1>
+        <a href="/" class="btn btn-secondary">Back</a>
+    </div>
+
+    <%- include("partials/errors.ejs") %>
+
+        <div class="form-card">
+            <form action="/update-folder/<%= folder.id %>" method="POST">
+
+                <fieldset>
+                    <label for="name">Folder name</label>
+                    <input id="name" name="name" type="text" placeholder="<%= folder.name %>" required />
+                </fieldset>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        Update Folder
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+</body>
+
+</html>

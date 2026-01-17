@@ -119,6 +119,33 @@ async function showFileDetials(req, res, next) {
     }
 }
 
+async function showUpdateFolderForm(req, res) {
+    const folderId = parseInt(req.params.id);
+    const folder = await prisma.folder.findUnique({
+        where: {
+            id: folderId,
+        }
+    });
+
+    res.render("update-folder", { folder });
+}
+
+async function updateFolderById(req, res, next) {
+    try {
+        const folderId = parseInt(req.params.id);
+        const updatedName = req.body.name;
+
+        await prisma.folder.update({
+            where: { id: folderId },
+            data: { name: updatedName }
+
+        });
+        res.redirect("/");
+    } catch (error) {
+        next(error);
+    }
+}
+
 async function showUpdateFileForm(req, res) {
     const fileId = parseInt(req.params.id);
     const folders = await getAllFoldersByUserId();
@@ -183,5 +210,7 @@ module.exports = {
     showFileDetials,
     showUpdateFileForm,
     updateFileById,
-    deleteFile
+    deleteFile,
+    showUpdateFolderForm,
+    updateFolderById
 };

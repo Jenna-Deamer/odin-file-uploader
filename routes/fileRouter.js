@@ -22,5 +22,10 @@ fileRouter.post("/update-file/:id", isAuth, upload.single('uploaded_file'), file
 fileRouter.get("/delete-file", isAuth, filesController.deleteFile);
 fileRouter.get("/folder/:id", isAuth, filesController.showFolderDetails);
 
+fileRouter.get("/update-folder/:id", isAuth, filesController.showUpdateFolderForm);
+fileRouter.post("/update-folder/:id", isAuth, filesController.updateFolderById);
+
+
+
 
 module.exports = fileRouter;
