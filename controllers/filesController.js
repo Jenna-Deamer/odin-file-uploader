@@ -1,4 +1,5 @@
 const { prisma } = require('../lib/prisma');
+const { supabase } = require('../lib/supabase');
 
 async function showFileCreateForm(req, res, next) {
     try {
@@ -20,33 +21,47 @@ async function handleNewFile(req, res, next) {
         if (!req.file) {
             return res.status(400).send("No file was uploaded.");
         }
-        const { originalname, size, path: filePath } = req.file;
-        if (req.body.folder && req.body.folder !== "") {
-            // Convert id selected to Int
-            selectedFolderId = parseInt(req.body.folder);
-        } else {
-            // None selected set to null
-            selectedFolderId = null;
-        }
 
+        const { originalname, size, buffer, mimetype } = req.file;
+
+        // Create a unique file name for Supabase 
+        const fileName = `${Date.now()}-${originalname}`;
+        const selectedFolderId = req.body.folder ? parseInt(req.body.folder) : null;
+
+        // Upload to Supabase 
+        const { data, error } = await supabase.storage
+            .from("files")
+            .upload(fileName, buffer, {
+                contentType: mimetype,
+                upsert: false
+            });
+
+        if (error) throw error;
+
+        // Get url from Supabase
+        const { data: urlData } = supabase.storage
+            .from("files")
+            .getPublicUrl(fileName);
+
+        const publicUrl = urlData.publicUrl;
+
+        // Create refrence in DB with url 
         await prisma.file.create({
             data: {
                 name: originalname,
                 size: size,
-                url: filePath,
+                url: publicUrl,
                 userId: req.user.id,
                 folderId: selectedFolderId
-
             }
         });
 
         res.redirect("/");
     } catch (error) {
-        console.error("Error saving file to DB:", error);
+        console.error("Error in file upload process:", error);
         next(error);
     }
 }
-
 async function handleNewFolder(req, res, next) {
     try {
         await prisma.folder.create({
@@ -167,10 +182,29 @@ async function updateFileById(req, res, next) {
         };
 
         if (req.file) {
-            updateData.name = req.file.originalname;
-            updateData.size = req.file.size;
-            updateData.url = req.file.path;
+            const { originalname, size, buffer, mimetype } = req.file;
+            const fileName = `${Date.now()}-${originalname}`;
+
+            const { data, error } = await supabase.storage
+                .from("files")
+                .upload(fileName, buffer, {
+                    contentType: mimetype,
+                    upsert: false
+                });
+
+            if (error) throw error;
+
+            // get new url from supabase
+            const { data: urlData } = supabase.storage
+                .from("files")
+                .getPublicUrl(fileName);
+
+
+            updateData.name = originalname;
+            updateData.size = size;
+            updateData.url = urlData.publicUrl;
         }
+
 
         await prisma.file.update({
             where: { id: fileId },
@@ -179,6 +213,7 @@ async function updateFileById(req, res, next) {
 
         res.redirect("/");
     } catch (error) {
+        console.error("Error updating file:", error);
         next(error);
     }
 }
