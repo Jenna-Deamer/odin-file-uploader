@@ -46,10 +46,10 @@
             <a href="/update-folder/<%= folder.id %>" class="btn btn-primary">
                 Update
             </a>
-            <form action="" method="POST">
-                <button type="submit" class="btn btn-danger">
-                    Delete
-                </button>
+            <form action="/delete-folder" method="GET"
+                onsubmit="return confirm(`Are you sure you want to delete <%= folder.name %>? If folder contains files they'll be moved to root level!`)">
+                <input type="hidden" name="folder_id" value="<%= folder.id %>">
+                <button type="submit" class="btn btn-danger">Delete</button>
             </form>
         </div>
     </div>

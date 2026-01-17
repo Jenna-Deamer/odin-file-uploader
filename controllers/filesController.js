@@ -187,7 +187,7 @@ async function deleteFile(req, res, next) {
     const fileId = parseInt(req.query.file_id);
 
     try {
-        const deleteFile = await prisma.file.delete({
+        await prisma.file.delete({
             where: {
                 id: fileId,
             }
@@ -196,6 +196,49 @@ async function deleteFile(req, res, next) {
         res.redirect("/");
     } catch (error) {
         next(error);
+    }
+}
+
+async function deleteFolder(req, res, next) {
+    const folderId = parseInt(req.query.folder_id);
+
+    const folder = await prisma.folder.findUnique({
+        where: {
+            id: folderId,
+        },
+        include: {
+            files: true
+        }
+    });
+
+    if (folder.files.length > 0) {
+
+        // remove folder from all files 
+        await prisma.file.updateMany({
+            where: {
+                folderId: folderId
+            },
+            data: {
+                folderId: null
+            }
+        });
+
+        await prisma.folder.delete({
+            where: {
+                id: folderId
+            }
+        });
+
+        res.redirect("/");
+
+    } else {
+        await prisma.folder.delete({
+            where: {
+                id: folderId
+            }
+        });
+
+        res.redirect("/");
     }
 }
 
@@ -212,5 +255,7 @@ module.exports = {
     updateFileById,
     deleteFile,
     showUpdateFolderForm,
-    updateFolderById
+    updateFolderById,
+    deleteFolder
+
 };

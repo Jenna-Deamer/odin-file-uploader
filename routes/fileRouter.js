@@ -25,6 +25,8 @@ fileRouter.get("/folder/:id", isAuth, filesController.showFolderDetails);
 fileRouter.get("/update-folder/:id", isAuth, filesController.showUpdateFolderForm);
 fileRouter.post("/update-folder/:id", isAuth, filesController.updateFolderById);
 
+fileRouter.get("/delete-folder", isAuth, filesController.deleteFolder);
+
 
 
 
